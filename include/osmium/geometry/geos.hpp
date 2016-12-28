@@ -49,10 +49,9 @@ namespace Osmium {
          * first time this function is run. This is used by all functions in
          * Osmium that need to create GEOS geometries.
          */
-        inline geos::geom::GeometryFactory* geos_geometry_factory() {
+        inline geos::geom::GeometryFactory::unique_ptr geos_geometry_factory() {
             static geos::geom::PrecisionModel pm;
-            static geos::geom::GeometryFactory factory(&pm, -1);
-            return &factory;
+	    return geos::geom::GeometryFactory::create(&pm, -1);
         }
 
         /**
